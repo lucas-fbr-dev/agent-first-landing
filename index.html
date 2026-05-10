@@ -8,429 +8,308 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Brevo styles -->
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     :root {
-      --bg-base:        #F5F2EA;
-      --bg-elevated:    #FAF8F1;
-      --bg-sidebar:     #F0EDE4;
-      --paper-darker:   #EDE6D6;
-      --text-primary:   #0F1624;
-      --text-secondary: #595C66;
-      --text-muted:     #9A9890;
-      --border:         #DCD7C8;
-      --border-strong:  #C8C2B2;
-      --accent:         #E04E1A;
-      --accent-soft:    #F7E0D5;
-      --live:           #168260;
-      --serif:          'Source Serif 4', Georgia, serif;
-      --sans:           'Inter', system-ui, sans-serif;
-      --mono:           'JetBrains Mono', 'Courier New', monospace;
+      --bg-base:#F5F2EA; --bg-elevated:#FAF8F1; --bg-sidebar:#F0EDE4; --paper-darker:#EDE6D6;
+      --text-primary:#0F1624; --text-secondary:#595C66; --text-muted:#9A9890;
+      --border:#DCD7C8; --border-strong:#C8C2B2; --accent:#E04E1A; --live:#168260;
+      --serif:'Source Serif 4',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono','Courier New',monospace;
     }
+    body { background:var(--bg-base); color:var(--text-primary); font-family:var(--sans); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+    .accent-bar { position:fixed; top:0; left:0; right:0; height:2px; background:var(--accent); z-index:100; }
+    .container { max-width:740px; margin:0 auto; padding:0 32px; }
+    .zone-marker { font-family:var(--mono); font-size:10px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-muted); display:flex; align-items:center; gap:10px; }
+    .zone-marker .num { color:var(--accent); } .zone-marker .sep { color:var(--border-strong); }
+    .divider { border:none; border-top:1px dashed var(--border); }
+    #hero { padding:100px 0 80px; border-bottom:1px dashed var(--border); }
+    .hero-label { font-family:var(--mono); font-size:10px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent); margin-bottom:28px; display:block; }
+    .hero-title { font-family:var(--serif); font-optical-sizing:auto; font-size:clamp(42px,6vw,64px); font-weight:600; line-height:1.08; letter-spacing:-0.025em; color:var(--text-primary); margin-bottom:24px; }
+    .hero-sub { font-family:var(--serif); font-optical-sizing:auto; font-size:clamp(18px,2.5vw,23px); font-weight:400; font-style:italic; color:var(--text-secondary); margin-bottom:48px; line-height:1.5; }
+    .hero-meta { display:grid; grid-template-columns:repeat(4,1fr); margin-bottom:48px; border-top:1px dashed var(--border); border-bottom:1px dashed var(--border); }
+    @media(max-width:480px){.hero-meta{grid-template-columns:repeat(2,1fr);}}
+    .hero-meta-item { padding:14px 0; text-align:center; font-family:var(--mono); font-size:9.5px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); border-right:1px dashed var(--border); }
+    .hero-meta-item:last-child { border-right:none; }
+    .hero-meta-item .val { display:block; font-size:16px; font-weight:500; font-family:var(--mono); color:var(--text-primary); letter-spacing:-0.01em; margin-bottom:3px; font-variant-numeric:tabular-nums; }
+    .hero-cta { display:inline-flex; align-items:center; gap:10px; background:var(--accent); color:#fff; font-family:var(--sans); font-size:15px; font-weight:500; padding:14px 30px; border-radius:2px; text-decoration:none; transition:opacity 0.15s; }
+    .hero-cta:hover { opacity:0.85; }
+    #rupture { background:var(--paper-darker); border-bottom:1px dashed var(--border); padding:64px 0; }
+    .section-marker { margin-bottom:32px; }
+    .section-title { font-family:var(--serif); font-optical-sizing:auto; font-size:clamp(26px,3.5vw,36px); font-weight:600; line-height:1.18; letter-spacing:-0.02em; color:var(--text-primary); margin-top:14px; }
+    .section-body { margin-top:24px; font-size:16px; line-height:1.75; color:var(--text-secondary); }
+    .section-body p+p { margin-top:16px; } strong { color:var(--text-primary); font-weight:500; }
+    .stats-row { display:grid; grid-template-columns:repeat(3,1fr); margin-top:40px; border:1px dashed var(--border-strong); border-radius:2px; overflow:hidden; }
+    @media(max-width:500px){.stats-row{grid-template-columns:1fr;}}
+    .stat-cell { padding:24px 20px; border-right:1px dashed var(--border-strong); background:var(--bg-elevated); }
+    .stat-cell:last-child { border-right:none; }
+    .stat-val { font-family:var(--mono); font-size:30px; font-weight:500; color:var(--text-primary); font-variant-numeric:tabular-nums; letter-spacing:-0.02em; line-height:1; margin-bottom:6px; }
+    .stat-val em { color:var(--accent); font-style:normal; }
+    .stat-lbl { font-family:var(--mono); font-size:9px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); line-height:1.55; }
+    #benefices { padding:72px 0; border-bottom:1px dashed var(--border); }
+    .benefits-grid { margin-top:36px; border:1px dashed var(--border-strong); border-radius:2px; overflow:hidden; display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); }
+    @media(max-width:540px){.benefits-grid{grid-template-columns:1fr;}}
+    .benefit-card { background:var(--bg-elevated); padding:28px 26px; display:flex; flex-direction:column; gap:10px; }
+    .benefit-num { font-family:var(--mono); font-size:9px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent); }
+    .benefit-title { font-family:var(--serif); font-optical-sizing:auto; font-size:17px; font-weight:600; line-height:1.3; letter-spacing:-0.01em; color:var(--text-primary); }
+    .benefit-desc { font-size:13.5px; line-height:1.7; color:var(--text-secondary); }
+    .benefit-tag { display:inline-block; font-family:var(--mono); font-size:9px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); padding:3px 8px; border:1px dashed var(--border-strong); border-radius:2px; margin-top:4px; align-self:flex-start; background:var(--bg-sidebar); }
+    #citation { background:var(--paper-darker); border-top:1px dashed var(--border); border-bottom:1px dashed var(--border); padding:52px 0; }
+    blockquote { font-family:var(--serif); font-optical-sizing:auto; font-size:clamp(18px,2.5vw,22px); font-weight:400; font-style:italic; line-height:1.6; color:var(--text-primary); letter-spacing:-0.01em; }
+    .cite-attr { margin-top:16px; font-family:var(--mono); font-size:9.5px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); }
+    #telechargement { padding:72px 0; }
+    #auteur { background:var(--paper-darker); border-top:1px dashed var(--border); border-bottom:1px dashed var(--border); padding:52px 0; }
+    .auteur-row { display:flex; align-items:flex-start; gap:28px; flex-wrap:wrap; }
+    .auteur-avatar { width:56px; height:56px; border-radius:2px; background:var(--border); border:1px dashed var(--border-strong); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:16px; font-weight:500; color:var(--text-secondary); }
+    .auteur-name { font-family:var(--serif); font-optical-sizing:auto; font-size:20px; font-weight:600; color:var(--text-primary); letter-spacing:-0.01em; margin-bottom:4px; }
+    .auteur-role { font-family:var(--mono); font-size:9.5px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px; }
+    .auteur-bio { font-size:14px; line-height:1.7; color:var(--text-secondary); max-width:520px; }
+    footer { padding:32px 0; }
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .footer-copy { font-family:var(--mono); font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); }
+    .footer-copy .name { color:var(--text-secondary); }
 
-    body {
-      background: var(--bg-base);
-      color: var(--text-primary);
-      font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+    /* ── OVERRIDE BREVO FORM ── */
+    .sib-form { background:transparent !important; text-align:left !important; padding:0 !important; }
+    #sib-form-container { max-width:100% !important; }
+    #sib-container {
+      max-width:100% !important;
+      background-color:var(--bg-elevated) !important;
+      border:1px dashed var(--border-strong) !important;
+      border-radius:2px !important;
+      padding:32px !important;
+      margin-top:36px;
     }
-
-    .accent-bar {
-      position: fixed; top: 0; left: 0; right: 0;
-      height: 2px; background: var(--accent); z-index: 100;
+    /* Grille prénom + email */
+    .sib-form-fields-wrap {
+      display:grid !important;
+      grid-template-columns:1fr 1fr !important;
+      gap:16px !important;
     }
-
-    .container { max-width: 740px; margin: 0 auto; padding: 0 32px; }
-
-    .zone-marker {
-      font-family: var(--mono); font-size: 10px; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--text-muted); display: flex; align-items: center; gap: 10px;
+    @media(max-width:500px){ .sib-form-fields-wrap { grid-template-columns:1fr !important; } }
+    /* Labels */
+    .entry__label {
+      font-family:var(--mono) !important;
+      font-size:9px !important;
+      font-weight:500 !important;
+      letter-spacing:0.14em !important;
+      text-transform:uppercase !important;
+      color:var(--text-muted) !important;
+      margin-bottom:7px !important;
+      display:block !important;
     }
-    .zone-marker .num { color: var(--accent); }
-    .zone-marker .sep { color: var(--border-strong); }
-
-    .divider { border: none; border-top: 1px dashed var(--border); }
-
-    /* HERO */
-    #hero { padding: 100px 0 80px; border-bottom: 1px dashed var(--border); }
-    .hero-label {
-      font-family: var(--mono); font-size: 10px; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 28px; display: block;
+    /* Inputs */
+    #sib-container input.input {
+      background:var(--bg-base) !important;
+      border:1px solid var(--border-strong) !important;
+      border-radius:2px !important;
+      padding:11px 14px !important;
+      font-family:var(--sans) !important;
+      font-size:15px !important;
+      color:var(--text-primary) !important;
+      width:100% !important;
+      outline:none !important;
+      box-shadow:none !important;
     }
-    .hero-title {
-      font-family: var(--serif); font-optical-sizing: auto;
-      font-size: clamp(42px, 6vw, 64px); font-weight: 600;
-      line-height: 1.08; letter-spacing: -0.025em;
-      color: var(--text-primary); margin-bottom: 24px;
+    #sib-container input.input::placeholder { color:var(--text-muted) !important; }
+    #sib-container input.input:focus { border-color:var(--accent) !important; }
+    /* Bouton */
+    .sib-form-block__button {
+      width:100% !important;
+      background:var(--accent) !important;
+      color:#fff !important;
+      font-family:var(--sans) !important;
+      font-size:15px !important;
+      font-weight:500 !important;
+      padding:13px 20px !important;
+      border:none !important;
+      border-radius:2px !important;
+      cursor:pointer !important;
+      letter-spacing:0.01em !important;
+      text-transform:none !important;
+      margin-top:16px !important;
     }
-    .hero-sub {
-      font-family: var(--serif); font-optical-sizing: auto;
-      font-size: clamp(18px, 2.5vw, 23px); font-weight: 400; font-style: italic;
-      color: var(--text-secondary); margin-bottom: 48px; line-height: 1.5;
+    .sib-form-block__button:hover { opacity:0.85 !important; }
+    /* Titre et description supprimés directement dans le HTML */
+    /* Messages succès / erreur */
+    #success-message, #error-message {
+      max-width:100% !important;
+      border-radius:2px !important;
+      font-family:var(--sans) !important;
+      font-size:14px !important;
+      font-weight:500 !important;
+      margin-top:14px !important;
     }
-    .hero-meta {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      margin-bottom: 48px;
-      border-top: 1px dashed var(--border);
-      border-bottom: 1px dashed var(--border);
+    #success-message {
+      background:rgba(22,130,96,0.08) !important;
+      border-color:rgba(22,130,96,0.35) !important;
+      color:var(--live) !important;
     }
-    @media (max-width: 480px) { .hero-meta { grid-template-columns: repeat(2, 1fr); } }
-    .hero-meta-item {
-      padding: 14px 0; text-align: center;
-      font-family: var(--mono); font-size: 9.5px; font-weight: 500;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
-      border-right: 1px dashed var(--border);
+    #error-message {
+      background:rgba(184,49,36,0.07) !important;
+      border-color:rgba(184,49,36,0.3) !important;
+      color:#B83124 !important;
     }
-    .hero-meta-item:last-child { border-right: none; }
-    .hero-meta-item .val {
-      display: block; font-size: 16px; font-weight: 500;
-      font-family: var(--mono); color: var(--text-primary);
-      letter-spacing: -0.01em; margin-bottom: 3px;
-      font-variant-numeric: tabular-nums;
-    }
-    .hero-cta {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: var(--accent); color: #fff;
-      font-family: var(--sans); font-size: 15px; font-weight: 500;
-      padding: 14px 30px; border-radius: 2px;
-      text-decoration: none; transition: opacity 0.15s; letter-spacing: 0.01em;
-    }
-    .hero-cta:hover { opacity: 0.85; }
-
-    /* RUPTURE */
-    #rupture {
-      background: var(--paper-darker);
-      border-bottom: 1px dashed var(--border);
-      padding: 64px 0;
-    }
-    .section-marker { margin-bottom: 32px; }
-    .section-title {
-      font-family: var(--serif); font-optical-sizing: auto;
-      font-size: clamp(26px, 3.5vw, 36px); font-weight: 600;
-      line-height: 1.18; letter-spacing: -0.02em;
-      color: var(--text-primary); margin-top: 14px;
-    }
-    .section-body { margin-top: 24px; font-size: 16px; line-height: 1.75; color: var(--text-secondary); }
-    .section-body p + p { margin-top: 16px; }
-    strong { color: var(--text-primary); font-weight: 500; }
-
-    .stats-row {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      margin-top: 40px;
-      border: 1px dashed var(--border-strong); border-radius: 2px; overflow: hidden;
-    }
-    @media (max-width: 500px) { .stats-row { grid-template-columns: 1fr; } }
-    .stat-cell {
-      padding: 24px 20px; border-right: 1px dashed var(--border-strong);
-      background: var(--bg-elevated);
-    }
-    .stat-cell:last-child { border-right: none; }
-    .stat-val {
-      font-family: var(--mono); font-size: 30px; font-weight: 500;
-      color: var(--text-primary); font-variant-numeric: tabular-nums;
-      letter-spacing: -0.02em; line-height: 1; margin-bottom: 6px;
-    }
-    .stat-val em { color: var(--accent); font-style: normal; }
-    .stat-lbl {
-      font-family: var(--mono); font-size: 9px; font-weight: 500;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--text-muted); line-height: 1.55;
-    }
-
-    /* BÉNÉFICES */
-    #benefices { padding: 72px 0; border-bottom: 1px dashed var(--border); }
-    .benefits-grid {
-      margin-top: 36px;
-      border: 1px dashed var(--border-strong); border-radius: 2px; overflow: hidden;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: var(--border);
-    }
-    @media (max-width: 540px) { .benefits-grid { grid-template-columns: 1fr; } }
-    .benefit-card {
-      background: var(--bg-elevated); padding: 28px 26px;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .benefit-num {
-      font-family: var(--mono); font-size: 9px; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent);
-    }
-    .benefit-title {
-      font-family: var(--serif); font-optical-sizing: auto;
-      font-size: 17px; font-weight: 600; line-height: 1.3;
-      letter-spacing: -0.01em; color: var(--text-primary);
-    }
-    .benefit-desc { font-size: 13.5px; line-height: 1.7; color: var(--text-secondary); }
-    .benefit-tag {
-      display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 500;
-      letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
-      padding: 3px 8px; border: 1px dashed var(--border-strong); border-radius: 2px;
-      margin-top: 4px; align-self: flex-start; background: var(--bg-sidebar);
-    }
-
-    /* CITATION */
-    #citation {
-      background: var(--paper-darker);
-      border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border);
-      padding: 52px 0;
-    }
-    blockquote {
-      font-family: var(--serif); font-optical-sizing: auto;
-      font-size: clamp(18px, 2.5vw, 22px); font-weight: 400; font-style: italic;
-      line-height: 1.6; color: var(--text-primary); letter-spacing: -0.01em;
-    }
-    .cite-attr {
-      margin-top: 16px; font-family: var(--mono); font-size: 9.5px; font-weight: 500;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
-    }
-
-    /* FORMULAIRE */
-    #telechargement { padding: 72px 0; }
-    .form-wrapper {
-      margin-top: 36px; border: 1px dashed var(--border-strong);
-      border-radius: 2px; overflow: hidden;
-    }
-    .form-inner { padding: 36px 32px; background: var(--bg-elevated); }
-    @media (max-width: 520px) { .form-inner { padding: 24px 20px; } }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-    @media (max-width: 500px) { .form-grid { grid-template-columns: 1fr; } }
-    .field-group { display: flex; flex-direction: column; gap: 7px; }
-    .field-label {
-      font-family: var(--mono); font-size: 9px; font-weight: 500;
-      letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
-    }
-    .field-input {
-      background: var(--bg-base); border: 1px solid var(--border-strong); border-radius: 2px;
-      padding: 11px 14px; font-family: var(--sans); font-size: 15px;
-      color: var(--text-primary); outline: none; transition: border-color 0.15s; width: 100%;
-    }
-    .field-input::placeholder { color: var(--text-muted); }
-    .field-input:focus { border-color: var(--accent); }
-    .form-submit {
-      width: 100%; background: var(--accent); color: #fff;
-      font-family: var(--sans); font-size: 15px; font-weight: 500;
-      padding: 13px 20px; border: none; border-radius: 2px;
-      cursor: pointer; transition: opacity 0.15s; margin-top: 4px; letter-spacing: 0.01em;
-    }
-    .form-submit:hover { opacity: 0.85; }
-    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-    .form-legal { margin-top: 14px; font-size: 11px; color: var(--text-muted); line-height: 1.65; }
-    .msg { display: none; margin-top: 14px; padding: 12px 16px; border-radius: 2px; font-size: 14px; font-weight: 500; }
-    .msg-ok { background: rgba(22,130,96,0.08); border: 1px dashed rgba(22,130,96,0.35); color: var(--live); }
-    .msg-err { background: rgba(184,49,36,0.07); border: 1px dashed rgba(184,49,36,0.3); color: #B83124; }
-
-    /* AUTEUR */
-    #auteur {
-      background: var(--paper-darker);
-      border-top: 1px dashed var(--border); border-bottom: 1px dashed var(--border);
-      padding: 52px 0;
-    }
-    .auteur-row { display: flex; align-items: flex-start; gap: 28px; flex-wrap: wrap; }
-    .auteur-avatar {
-      width: 56px; height: 56px; border-radius: 2px;
-      background: var(--border); border: 1px dashed var(--border-strong);
-      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono); font-size: 16px; font-weight: 500; color: var(--text-secondary);
-    }
-    .auteur-name {
-      font-family: var(--serif); font-optical-sizing: auto;
-      font-size: 20px; font-weight: 600; color: var(--text-primary);
-      letter-spacing: -0.01em; margin-bottom: 4px;
-    }
-    .auteur-role {
-      font-family: var(--mono); font-size: 9.5px; font-weight: 500;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;
-    }
-    .auteur-bio { font-size: 14px; line-height: 1.7; color: var(--text-secondary); max-width: 520px; }
-
-    /* FOOTER */
-    footer { padding: 32px 0; }
-    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .footer-copy { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
-    .footer-copy .name { color: var(--text-secondary); }
+    /* Mention légale */
+    .sib-form__declaration { display:none !important; }
+    .form-legal { margin-top:14px; font-size:11px; color:var(--text-muted); line-height:1.65; }
   </style>
 </head>
 <body>
-
   <div class="accent-bar"></div>
 
-  <section id="hero">
-    <div class="container">
-      <div class="zone-marker" style="margin-bottom:36px">
-        <span class="num">00</span><span class="sep">·</span>AGENT FIRST<span class="sep">·</span>LIVRE BLANC 2026
-      </div>
-      <span class="hero-label">Téléchargement gratuit</span>
-      <h1 class="hero-title">Votre prochain client<br>est une IA.<br>Êtes-vous prêt ?</h1>
-      <p class="hero-sub">Quand l'IA devient à la fois votre client et votre équipe.</p>
-      <div class="hero-meta">
-        <div class="hero-meta-item"><span class="val">30</span>pages</div>
-        <div class="hero-meta-item"><span class="val">2</span>faces</div>
-        <div class="hero-meta-item"><span class="val">4</span>piliers</div>
-        <div class="hero-meta-item"><span class="val">Mai 2026</span>dépôt</div>
-      </div>
-      <a href="#telechargement" class="hero-cta">Recevoir le livre blanc &nbsp;↓</a>
+  <section id="hero"><div class="container">
+    <div class="zone-marker" style="margin-bottom:36px"><span class="num">00</span><span class="sep">·</span>AGENT FIRST<span class="sep">·</span>LIVRE BLANC 2026</div>
+    <span class="hero-label">Téléchargement gratuit</span>
+    <h1 class="hero-title">Votre prochain client<br>est une IA.<br>Êtes-vous prêt&nbsp;?</h1>
+    <p class="hero-sub">Quand l'IA devient à la fois votre client et votre équipe.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="val">30</span>pages</div>
+      <div class="hero-meta-item"><span class="val">2</span>faces</div>
+      <div class="hero-meta-item"><span class="val">4</span>piliers</div>
+      <div class="hero-meta-item"><span class="val">Mai&nbsp;2026</span>dépôt</div>
     </div>
-  </section>
+    <a href="#telechargement" class="hero-cta">Recevoir le livre blanc&nbsp;↓</a>
+  </div></section>
 
-  <section id="rupture">
-    <div class="container">
-      <div class="section-marker">
-        <div class="zone-marker"><span class="num">01</span><span class="sep">·</span>LA RUPTURE</div>
-        <h2 class="section-title">Ce que peu de gens<br>ont encore verbalisé.</h2>
-      </div>
-      <div class="section-body">
-        <p><strong>Côté client</strong>, des agents IA cherchent, comparent et achètent à la place des humains — ChatGPT Shopping, Perplexity, Amazon Rufus. <strong>Côté opérations</strong>, ces mêmes agents automatisent les coulisses : fiches produit, stocks, pricing, service client.</p>
-        <p>Ce n'est pas une tendance à surveiller. C'est déjà en cours. Depuis début 2025, les marchands Shopify observent une multiplication par 15 des commandes issues de recherches IA.</p>
-      </div>
-      <div class="stats-row">
-        <div class="stat-cell">
-          <div class="stat-val"><em>×15</em></div>
-          <div class="stat-lbl">Commandes issues<br>de recherches IA<br>Shopify 2025</div>
-        </div>
-        <div class="stat-cell">
-          <div class="stat-val">82<em>%</em></div>
-          <div class="stat-lbl">Organisations qui<br>prévoient l'IA agentique<br>d'ici 3 ans · Gartner</div>
-        </div>
-        <div class="stat-cell">
-          <div class="stat-val"><em>×2</em></div>
-          <div class="stat-lbl">Projets IA en production<br>attendus dans les<br>6 prochains mois</div>
-        </div>
-      </div>
+  <section id="rupture"><div class="container">
+    <div class="section-marker">
+      <div class="zone-marker"><span class="num">01</span><span class="sep">·</span>LA RUPTURE</div>
+      <h2 class="section-title">Ce que peu de gens<br>ont encore verbalisé.</h2>
     </div>
-  </section>
-
-  <section id="benefices">
-    <div class="container">
-      <div class="section-marker">
-        <div class="zone-marker"><span class="num">02</span><span class="sep">·</span>CE QUE VOUS APPRENEZ</div>
-        <h2 class="section-title">30 pages de terrain,<br>pas de théorie.</h2>
-      </div>
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <div class="benefit-num">01 · Comprendre</div>
-          <div class="benefit-title">La mécanique de la rupture agentique</div>
-          <div class="benefit-desc">Pourquoi les parcours d'achat changent, comment les agents décident, et ce que ça implique concrètement — vue de l'intérieur d'une agence e-commerce.</div>
-          <div class="benefit-tag">Fondamentaux</div>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-num">02 · Être visible</div>
-          <div class="benefit-title">Optimiser pour les agents acheteurs</div>
-          <div class="benefit-desc">AEO, structured data, descriptionHtml, signaux de confiance — comment être sélectionné quand c'est une IA qui compare à votre place.</div>
-          <div class="benefit-tag">Face A</div>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-num">03 · Opérer</div>
-          <div class="benefit-title">Augmenter ses opérations avec des agents</div>
-          <div class="benefit-desc">Orchestration multi-agents, stack en 5 couches, human-in-the-loop — quels agents déployer, dans quel ordre, et où garder le contrôle.</div>
-          <div class="benefit-tag">Face B</div>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-num">04 · Agir</div>
-          <div class="benefit-title">Le framework Dual Core C-O-R-E</div>
-          <div class="benefit-desc">Un plan en 4 piliers et 3 horizons (0–12 mois) pour adresser les deux faces simultanément — quelle que soit la taille de votre structure.</div>
-          <div class="benefit-tag">Framework</div>
-        </div>
-      </div>
+    <div class="section-body">
+      <p><strong>Côté client</strong>, des agents IA cherchent, comparent et achètent à la place des humains — ChatGPT Shopping, Perplexity, Amazon Rufus. <strong>Côté opérations</strong>, ces mêmes agents automatisent les coulisses&nbsp;: fiches produit, stocks, pricing, service client.</p>
+      <p>Ce n'est pas une tendance à surveiller. C'est déjà en cours. Depuis début&nbsp;2025, les marchands Shopify observent une multiplication par&nbsp;15 des commandes issues de recherches IA.</p>
     </div>
-  </section>
-
-  <section id="citation">
-    <div class="container">
-      <blockquote>"L'IA achète à votre place. L'IA gère vos coulisses. Et vous, vous avez maintenant un plan."</blockquote>
-      <div class="cite-attr">Lucas Fabre · Agent First, 2026</div>
+    <div class="stats-row">
+      <div class="stat-cell"><div class="stat-val"><em>×15</em></div><div class="stat-lbl">Commandes issues<br>de recherches IA<br>Shopify 2025</div></div>
+      <div class="stat-cell"><div class="stat-val">82<em>%</em></div><div class="stat-lbl">Organisations qui<br>prévoient l'IA agentique<br>d'ici 3&nbsp;ans · Gartner</div></div>
+      <div class="stat-cell"><div class="stat-val"><em>×2</em></div><div class="stat-lbl">Projets IA en production<br>attendus dans les<br>6&nbsp;prochains mois</div></div>
     </div>
-  </section>
+  </div></section>
 
-  <section id="telechargement">
-    <div class="container">
-      <div class="section-marker">
-        <div class="zone-marker"><span class="num">03</span><span class="sep">·</span>ACCÈS GRATUIT</div>
-        <h2 class="section-title">Recevez le livre blanc<br>par email.</h2>
-      </div>
-      <div class="form-wrapper">
-        <div class="form-inner">
-          <div class="form-grid">
-            <div class="field-group">
-              <label class="field-label" for="f-prenom">Prénom</label>
-              <input class="field-input" type="text" id="f-prenom" placeholder="Votre prénom" autocomplete="given-name">
-            </div>
-            <div class="field-group">
-              <label class="field-label" for="f-email">Email</label>
-              <input class="field-input" type="email" id="f-email" placeholder="vous@exemple.com" autocomplete="email">
-            </div>
+  <section id="benefices"><div class="container">
+    <div class="section-marker">
+      <div class="zone-marker"><span class="num">02</span><span class="sep">·</span>CE QUE VOUS APPRENEZ</div>
+      <h2 class="section-title">30&nbsp;pages de terrain,<br>pas de théorie.</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card"><div class="benefit-num">01 · Comprendre</div><div class="benefit-title">La mécanique de la rupture agentique</div><div class="benefit-desc">Pourquoi les parcours d'achat changent, comment les agents décident, et ce que ça implique concrètement — vue de l'intérieur d'une agence e-commerce.</div><div class="benefit-tag">Fondamentaux</div></div>
+      <div class="benefit-card"><div class="benefit-num">02 · Être visible</div><div class="benefit-title">Optimiser pour les agents acheteurs</div><div class="benefit-desc">AEO, structured data, descriptionHtml, signaux de confiance — comment être sélectionné quand c'est une IA qui compare à votre place.</div><div class="benefit-tag">Face A</div></div>
+      <div class="benefit-card"><div class="benefit-num">03 · Opérer</div><div class="benefit-title">Augmenter ses opérations avec des agents</div><div class="benefit-desc">Orchestration multi-agents, stack en 5&nbsp;couches, human-in-the-loop — quels agents déployer, dans quel ordre, et où garder le contrôle.</div><div class="benefit-tag">Face B</div></div>
+      <div class="benefit-card"><div class="benefit-num">04 · Agir</div><div class="benefit-title">Le framework Dual Core C-O-R-E</div><div class="benefit-desc">Un plan en 4&nbsp;piliers et 3&nbsp;horizons (0–12&nbsp;mois) pour adresser les deux faces simultanément — quelle que soit la taille de votre structure.</div><div class="benefit-tag">Framework</div></div>
+    </div>
+  </div></section>
+
+  <section id="citation"><div class="container">
+    <blockquote>«&nbsp;L'IA achète à votre place. L'IA gère vos coulisses. Et vous, vous avez maintenant un plan.&nbsp;»</blockquote>
+    <div class="cite-attr">Lucas Fabre · Agent First, 2026</div>
+  </div></section>
+
+  <section id="telechargement"><div class="container">
+    <div class="section-marker">
+      <div class="zone-marker"><span class="num">03</span><span class="sep">·</span>ACCÈS GRATUIT</div>
+      <h2 class="section-title">Recevez le livre blanc<br>par email.</h2>
+    </div>
+
+    <!-- FORMULAIRE BREVO NATIF — stylé Atlas -->
+    <div class="sib-form">
+      <div id="sib-form-container" class="sib-form-container">
+        <div id="error-message" class="sib-form-message-panel">
+          <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+            <span class="sib-form-message-panel__inner-text">Nous n'avons pas pu confirmer votre inscription.</span>
           </div>
-          <button class="form-submit" id="btn-submit" type="button">Recevoir le livre blanc →</button>
-          <div class="msg msg-ok" id="msg-ok">✓ C'est noté. Vous recevrez le livre blanc dans quelques minutes.</div>
-          <div class="msg msg-err" id="msg-err">Une erreur s'est produite. Réessayez ou écrivez-moi directement.</div>
-          <p class="form-legal">Vos données ne seront jamais partagées. Vous recevrez le livre blanc et, occasionnellement, des contenus liés à l'agentic commerce. Désabonnement en un clic. RGPD.</p>
+        </div>
+        <div id="success-message" class="sib-form-message-panel">
+          <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+            <span class="sib-form-message-panel__inner-text">✓ C'est noté. Vous recevrez le livre blanc dans quelques minutes.</span>
+          </div>
+        </div>
+        <div id="sib-container" class="sib-container--large sib-container--vertical">
+          <form id="sib-form" method="POST" action="https://9fc1b4f4.sibforms.com/serve/MUIFAK7nNBx3012TJyyd_XIudtarBOI1iCrBUBJUu0Zi4nY6Glyu-c7TqYtDBOC7XJyo0aKmmA41dxL5JYP144RvvO9M6nf3sOTFtgn7ctSjeYxZqhQBvWvVv2QeLUL6FJ9U0snn1V4m2yhCiYjnpo6qdOkc5qcxlIOuB1sdZRpvEjFf4nH4luORjRUcbzvkTQKO2zMoecU8Bd01tg==" data-type="subscription">
+
+            <div class="sib-form-fields-wrap">
+              <!-- Prénom -->
+              <div class="sib-input sib-form-block">
+                <div class="form__entry entry_block">
+                  <div class="form__label-row">
+                    <label class="entry__label" for="NOM">Nom / Prénom</label>
+                    <div class="entry__field">
+                      <input class="input" type="text" id="NOM" name="NOM" placeholder="Votre nom et prénom" autocomplete="name" maxlength="200">
+                    </div>
+                  </div>
+                  <label class="entry__error entry__error--primary"></label>
+                </div>
+              </div>
+              <!-- Email -->
+              <div class="sib-input sib-form-block">
+                <div class="form__entry entry_block">
+                  <div class="form__label-row">
+                    <label class="entry__label" for="EMAIL">Email</label>
+                    <div class="entry__field">
+                      <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="email" placeholder="vous@exemple.com" data-required="true" required>
+                    </div>
+                  </div>
+                  <label class="entry__error entry__error--primary"></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bouton -->
+            <div class="sib-form-block" style="text-align:left; padding-top:4px;">
+              <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
+                <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
+                  <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/>
+                </svg>
+                Recevoir le livre blanc →
+              </button>
+            </div>
+
+            <p class="form-legal">Vos données ne seront jamais partagées. Vous recevrez le livre blanc et, occasionnellement, des contenus liés à l'agentic commerce. Désabonnement en un clic. RGPD.</p>
+
+            <input type="text" name="email_address_check" value="" class="input--hidden">
+            <input type="hidden" name="locale" value="fr">
+          </form>
         </div>
       </div>
     </div>
-  </section>
 
-  <section id="auteur">
-    <div class="container">
-      <div class="zone-marker" style="margin-bottom:28px">
-        <span class="num">04</span><span class="sep">·</span>L'AUTEUR
-      </div>
-      <div class="auteur-row">
-        <div class="auteur-avatar">LF</div>
-        <div>
-          <div class="auteur-name">Lucas Fabre</div>
-          <div class="auteur-role">Alternant webmaster · Horrea · M2 Start e-Business, ESP Lyon</div>
-          <p class="auteur-bio">Pas chercheur, pas consultant senior. Quelqu'un qui opère des sites e-commerce au quotidien et qui a vu arriver la rupture agentique par les deux bouts en même temps — depuis l'intérieur d'une agence.</p>
-        </div>
+  </div></section>
+
+  <section id="auteur"><div class="container">
+    <div class="zone-marker" style="margin-bottom:28px"><span class="num">04</span><span class="sep">·</span>L'AUTEUR</div>
+    <div class="auteur-row">
+      <div class="auteur-avatar">LF</div>
+      <div>
+        <div class="auteur-name">Lucas Fabre</div>
+        <div class="auteur-role">Alternant webmaster · Horrea · M2 Start e-Business, ESP Lyon</div>
+        <p class="auteur-bio">Pas chercheur, pas consultant senior. Quelqu'un qui opère des sites e-commerce au quotidien et qui a vu arriver la rupture agentique par les deux bouts en même temps — depuis l'intérieur d'une agence.</p>
       </div>
     </div>
-  </section>
+  </div></section>
 
-  <footer>
-    <hr class="divider">
-    <div class="container" style="padding-top:28px">
-      <div class="footer-inner">
-        <div class="footer-copy"><span class="name">Lucas Fabre</span> · M2 Start e-Business, ESP Lyon · 2026</div>
-        <div class="zone-marker"><span class="num">00</span><span class="sep">·</span>AGENT FIRST</div>
-      </div>
+  <footer><hr class="divider"><div class="container" style="padding-top:28px">
+    <div class="footer-inner">
+      <div class="footer-copy"><span class="name">Lucas Fabre</span> · M2 Start e-Business, ESP Lyon · 2026</div>
+      <div class="zone-marker"><span class="num">00</span><span class="sep">·</span>AGENT FIRST</div>
     </div>
-  </footer>
+  </div></footer>
 
+  <!-- Brevo JS -->
   <script>
-    // ── BREVO — à configurer ──────────────────────────────────────
-    // 1. brevo.com → Paramètres → Clés API → créer clé "Contacts"
-    // 2. Créer une liste "Agent First LB" → noter son ID numérique
-    // 3. Remplacer les deux valeurs ci-dessous
-    // 4. Workflow Brevo : déclencheur "Ajouté à liste X" → email + PDF joint
-    const BREVO_API_KEY = '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';
-    const BREVO_LIST_ID = 5;
-
-    const btn = document.getElementById('btn-submit');
-    async function submit() {
-      const prenom = document.getElementById('f-prenom').value.trim();
-      const email  = document.getElementById('f-email').value.trim();
-      if (!email || !email.includes('@')) { document.getElementById('f-email').focus(); return; }
-      btn.disabled = true; btn.textContent = 'Envoi…';
-      document.getElementById('msg-ok').style.display = document.getElementById('msg-err').style.display = 'none';
-      try {
-        const r = await fetch('https://api.brevo.com/v3/contacts', {
-          method: 'POST',
-          headers: { 'api-key': BREVO_API_KEY, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, attributes: { FIRSTNAME: prenom }, listIds: [BREVO_LIST_ID], updateEnabled: true })
-        });
-        if (r.ok || r.status === 204) {
-          document.getElementById('msg-ok').style.display = 'block';
-          document.getElementById('f-prenom').value = document.getElementById('f-email').value = '';
-        } else throw new Error(r.status);
-      } catch { document.getElementById('msg-err').style.display = 'block'; }
-      finally { btn.disabled = false; btn.textContent = 'Recevoir le livre blanc →'; }
-    }
-    btn.addEventListener('click', submit);
-    ['f-prenom','f-email'].forEach(id => document.getElementById(id).addEventListener('keydown', e => e.key === 'Enter' && submit()));
+    window.REQUIRED_CODE_ERROR_MESSAGE = 'Veuillez choisir un code pays';
+    window.LOCALE = 'fr';
+    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "Adresse email invalide.";
+    window.REQUIRED_ERROR_MESSAGE = "Ce champ est obligatoire.";
+    window.GENERIC_INVALID_MESSAGE = "Informations invalides.";
+    window.INVALID_DATE = "Date invalide";
+    window.REQUIRED_MULTISELECT_MESSAGE = 'Veuillez choisir au moins une option';
+    var AUTOHIDE = Boolean(0);
   </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+
 </body>
 </html>
